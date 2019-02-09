@@ -167,7 +167,8 @@ Item {
                         }
 
                         function updatePosition() {
-                            robotsModel.move({ name: "right" }, x / chllng.width. y / chllng.height)
+                            // there are some problems here too maybe?
+                            robotsModel.move({ name: "right" }, x / chllng.width, y / chllng.height)
                         }
 
                         onXChanged: updatePosition()

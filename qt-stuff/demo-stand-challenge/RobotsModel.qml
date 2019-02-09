@@ -10,7 +10,7 @@ Item {
     QtObject {
         id: proxy
 
-        property string ip: "10.78.144.127"
+        property string ip: "localhost"
         property string port: "3000"
 
         property url httpUrl: "http://" + ip + ":" + port
@@ -24,11 +24,14 @@ Item {
         doc.onreadystatechange = function () {
             if (doc.readyState === XMLHttpRequest.DONE) {
                 console.log(route + " succeeded, calling callback")
-                callback(doc)
+                console.log(doc)
             }
         }
 
-        doc.open("GET", proxy.httpUrl + route)
+        console.log('Posting to ' + proxy.httpUrl + route)
+        console.log(JSON.stringify(data))
+        // need to be post request - don't know if this worked
+        doc.open("POST", proxy.httpUrl + route)
         if (!!data) {
             doc.send(data)
         } else {
@@ -60,7 +63,8 @@ Item {
     }
 
     function move(arm, relativeY, relativeZ) {
-        sendRequest(arm.name + "/move", getPosition(arm, relativeY, relativeZ))
+        // arm was undefined here
+        sendRequest(/*arm.name + */ "/left/move", getPosition(leftArm, relativeY, relativeZ))
     }
 
     RobotArm {
